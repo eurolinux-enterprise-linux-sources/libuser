@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.56.13
-Release: 5%{?dist}
+Release: 8%{?dist}
 Group: System Environment/Base
 License: LGPLv2+
 URL: https://fedorahosted.org/libuser/
@@ -27,6 +27,12 @@ Patch6: libuser-0.56.13-empty-gecos.patch
 Patch7: libuser-0.56.13-setgid-skel.patch
 # Upstream changeset 96be29c187aced348c8c567a249f947d1ba0a038
 Patch8: libuser-0.56.13-get_matchingx-segfault.patch
+Patch9: libuser-CVE-2015-3246.patch
+# Upstream changeset 53ad27a97c379d5348426008e562fef05d917449
+Patch10: libuser-0.56.13-rsa-1024.patch
+# Upstream changesets 031e8ee657d5e064aceb6fb68af2a99ef6c935ab and
+# 50e81d316f04116d1b39ce60c4973d9bb3803d21
+Patch11: libuser-0.56.13-alloc_port.patch
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: glib2-devel, linuxdoc-tools, pam-devel, popt-devel, python-devel
 BuildRequires: cyrus-sasl-devel, libselinux-devel, openldap-devel
@@ -77,6 +83,9 @@ administering user and group accounts.
 %patch6 -p1 -b .empty-gecos
 %patch7 -p1 -b .setgid-skel
 %patch8 -p1 -b .get_matchingx-segfault
+%patch9 -p1 -b .CVE-2015-3246
+%patch10 -p1 -b .rsa-1024
+%patch11 -p1 -b .alloc_port
 chmod a+x tests/default_pw_test
 
 # For Patch4
@@ -145,6 +154,20 @@ python -c "import libuser"
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Jul  8 2015 Miloslav Trmač <mitr@redhat.com> - 0.56.13-8
+- Update CVE-2015-3246 patch based on review comments
+  Resolves: #1235518
+
+* Sat Jun 27 2015 Miloslav Trmač <mitr@redhat.com> - 0.56.13-7
+- Don’t use 512-bit RSA private keys in tests
+  Related: #1235518
+- Fix testsuite failures if more than one architecture is building concurrently
+  Related: #1235518
+
+* Fri Jun 26 2015 Miloslav Trmač <mitr@redhat.com> - 0.56.13-6
+- Fix CVE-2015-3246
+  Resolves: #1235518
+
 * Mon Feb 13 2012 Miloslav Trmač <mitr@redhat.com> - 0.56.13-5
 - Correctly mark the LDAP default password value as encrypted (CVE-2011-0002)
   Resolves: #668021
