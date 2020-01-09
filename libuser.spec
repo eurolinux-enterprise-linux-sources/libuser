@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.56.13
-Release: 4%{?dist}.1
+Release: 5%{?dist}
 Group: System Environment/Base
 License: LGPLv2+
 URL: https://fedorahosted.org/libuser/
@@ -21,6 +21,12 @@ Patch4: libuser-0.56.13-default-pw.patch
 # Upstream changesets 3b86efe54ab0f6805c3c4bccd61c1558e39d84b8 and
 # f4e2b1c38d0be007bb83b6972c2ede31331c6166
 Patch5: libuser-0.56.13-ldap-tests.patch
+# Upstream changeset 44c92c5eef75eadb71f14f2c8834dfc7ca5b0adb
+Patch6: libuser-0.56.13-empty-gecos.patch
+# Upstream changeset 27d68c294018db904c0b8103d704fac1ded6a757
+Patch7: libuser-0.56.13-setgid-skel.patch
+# Upstream changeset 96be29c187aced348c8c567a249f947d1ba0a038
+Patch8: libuser-0.56.13-get_matchingx-segfault.patch
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: glib2-devel, linuxdoc-tools, pam-devel, popt-devel, python-devel
 BuildRequires: cyrus-sasl-devel, libselinux-devel, openldap-devel
@@ -68,6 +74,9 @@ administering user and group accounts.
 %patch3 -p1 -b .crypt_style
 %patch4 -p1 -b .default-pw
 %patch5 -p1 -b .ldap-tests
+%patch6 -p1 -b .empty-gecos
+%patch7 -p1 -b .setgid-skel
+%patch8 -p1 -b .get_matchingx-segfault
 chmod a+x tests/default_pw_test
 
 # For Patch4
@@ -136,9 +145,15 @@ python -c "import libuser"
 %{_datadir}/gtk-doc/html/*
 
 %changelog
-* Mon Jan 10 2011 Miloslav Trmač <mitr@redhat.com> - 0.56.13-4
+* Mon Feb 13 2012 Miloslav Trmač <mitr@redhat.com> - 0.56.13-5
 - Correctly mark the LDAP default password value as encrypted (CVE-2011-0002)
-  Resolves: #668020
+  Resolves: #668021
+- Default LDAP cn to username if gecos is empty
+  Resolves: #670151
+- Preserve setuid and setgid bits when copying files from /etc/skel
+  Resolves: #724987
+- Fix segfault when reading database files with certain sizes
+  Resolves: #788521
 
 * Wed Sep  1 2010 Miloslav Trmač <mitr@redhat.com> - 0.56.13-4
 - Change default crypt_style to sha512
