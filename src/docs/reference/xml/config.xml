@@ -1,0 +1,120 @@
+<refentry id="libuser-config">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-config.top_of_page">config</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>config</refname>
+<refpurpose>Routines for reading configuration information for the libuser library.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-config.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="GList">GList</link> *             <link linkend="lu-cfg-read">lu_cfg_read</link>                         (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *key,
+                                                         const <link linkend="char">char</link> *default_value);
+const <link linkend="char">char</link> *        <link linkend="lu-cfg-read-single">lu_cfg_read_single</link>                  (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *key,
+                                                         const <link linkend="char">char</link> *default_value);
+<link linkend="GList">GList</link> *             <link linkend="lu-cfg-read-keys">lu_cfg_read_keys</link>                    (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *parent_key);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-config.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+These routines allow an application or module to read configuration data
+from the libuser configuration.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-config.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="lu-cfg-read" role="function">
+<title>lu_cfg_read ()</title>
+<indexterm zone="lu-cfg-read"><primary sortas="lu_cfg_read">lu_cfg_read</primary></indexterm><programlisting><link linkend="GList">GList</link> *             lu_cfg_read                         (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *key,
+                                                         const <link linkend="char">char</link> *default_value);</programlisting>
+<para>
+Reads the list of values for a given key from the configuration space.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>A valid libuser library context.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>The value to be read from the configuration.  The key should be of the
+form "section/key" for most purposes.  For example, the <link linkend="files"><type>files</type></link> module uses
+keys of the form "file/foo" for all of its configuration data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_value</parameter>&#160;:</term>
+<listitem><simpara>A default value to be returned in case none are found.  Can
+be NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A <link linkend="GList"><type>GList</type></link> of values, formatted as strings.  The list must be freed
+by calling <link linkend="g-list-free"><function>g_list_free()</function></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-cfg-read-single" role="function">
+<title>lu_cfg_read_single ()</title>
+<indexterm zone="lu-cfg-read-single"><primary sortas="lu_cfg_read_single">lu_cfg_read_single</primary></indexterm><programlisting>const <link linkend="char">char</link> *        lu_cfg_read_single                  (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *key,
+                                                         const <link linkend="char">char</link> *default_value);</programlisting>
+<para>
+Read a single value set for a given key in the configuration space.  This is
+a convenience function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>A valid libuser library context.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>The value to be read from the configuration.  The key should be of the
+form "section/key" for most purposes.  For example, the <link linkend="files"><type>files</type></link> module uses
+keys of the form "file/foo" for all of its configuration data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_value</parameter>&#160;:</term>
+<listitem><simpara>A default value to be returned in case none are found.  Can
+be NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A string representation of one of the values set for the key.  This
+string must not be freed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-cfg-read-keys" role="function">
+<title>lu_cfg_read_keys ()</title>
+<indexterm zone="lu-cfg-read-keys"><primary sortas="lu_cfg_read_keys">lu_cfg_read_keys</primary></indexterm><programlisting><link linkend="GList">GList</link> *             lu_cfg_read_keys                    (<link linkend="struct-lu-context">struct lu_context</link> *context,
+                                                         const <link linkend="char">char</link> *parent_key);</programlisting>
+<para>
+Read the names of all of the keys "below" a given key in the configuration
+space.  This function is typically used for walking the configuration space.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>A valid libuser library context.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_key</parameter>&#160;:</term>
+<listitem><simpara>The parent key under which the caller wishes to know which subkeys
+are present.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A <link linkend="GList"><type>GList</type></link> of string representations of key names.  The list must be
+freed using <link linkend="g-list-free"><function>g_list_free()</function></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

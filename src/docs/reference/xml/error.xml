@@ -1,0 +1,156 @@
+<refentry id="libuser-error">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-error.top_of_page">error</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>error</refname>
+<refpurpose>Functions for allocating and manipulating <link linkend="lu-error"><type>lu_error</type></link> structures.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-error.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+#define             <link linkend="LU-ERROR-CHECK--CAPS">LU_ERROR_CHECK</link>                      (err_p_p)
+<link linkend="void">void</link>                <link linkend="lu-error-new">lu_error_new</link>                        (<link linkend="lu-error-t">lu_error_t</link> **error,
+                                                         <link linkend="lu-status-t">lu_status_t</link> code,
+                                                         const <link linkend="char">char</link> *fmt,
+                                                         ...);
+<link linkend="void">void</link>                <link linkend="lu-error-free">lu_error_free</link>                       (<link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-error-is-success">lu_error_is_success</link>                 (<link linkend="lu-status-t">lu_status_t</link> status);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-error-is-warning">lu_error_is_warning</link>                 (<link linkend="lu-status-t">lu_status_t</link> status);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-error-is-error">lu_error_is_error</link>                   (<link linkend="lu-status-t">lu_status_t</link> status);
+const <link linkend="char">char</link> *        <link linkend="lu-strerror">lu_strerror</link>                         (<link linkend="lu-error-t">lu_error_t</link> *error);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-error.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+<filename>error.h</filename> includes declarations for allocating and
+manipulating <link linkend="lu-error"><type>lu_error</type></link> structures.  These structures hold error and status
+information passed between libuser, its modules, and applications.
+</para>
+<para>
+A struct <link linkend="lu-error"><type>lu_error</type></link> contains an error code and a human-readable, possibly
+translated error string.  The error string is using the encoding specified
+by <link linkend="LC-CTYPE--CAPS"><literal>LC_CTYPE</literal></link> locale category.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-error.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="LU-ERROR-CHECK--CAPS" role="macro">
+<title>LU_ERROR_CHECK()</title>
+<indexterm zone="LU-ERROR-CHECK--CAPS"><primary sortas="LU_ERROR_CHECK">LU_ERROR_CHECK</primary></indexterm><programlisting>#define             LU_ERROR_CHECK(err_p_p)</programlisting>
+<para>
+Checks that the given pointer to a pointer to a struct does not already point
+to a valid <link linkend="lu-error"><type>lu_error</type></link> structure.  This macro is used by many internal functions
+to check that an error has not already occurred when they are invoked.
+</para><variablelist role="params">
+<varlistentry><term><parameter>err_p_p</parameter>&#160;:</term>
+<listitem><simpara>A pointer to a struct <link linkend="lu-error"><type>lu_error</type></link> * which will be checked.  If there
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-error-new" role="function">
+<title>lu_error_new ()</title>
+<indexterm zone="lu-error-new"><primary sortas="lu_error_new">lu_error_new</primary></indexterm><programlisting><link linkend="void">void</link>                lu_error_new                        (<link linkend="lu-error-t">lu_error_t</link> **error,
+                                                         <link linkend="lu-status-t">lu_status_t</link> code,
+                                                         const <link linkend="char">char</link> *fmt,
+                                                         ...);</programlisting>
+<para>
+Creates a new <link linkend="lu-error"><type>lu_error</type></link> structure.
+</para><variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A pointer to a struct <link linkend="lu-error"><type>lu_error</type></link> * which will hold the newly-created
+error structure. It must point to <link linkend="NULL--CAPS"><type>NULL</type></link> before calling this function.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>code</parameter>&#160;:</term>
+<listitem><simpara>An error code
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fmt</parameter>&#160;:</term>
+<listitem><simpara>Format string describing the error. If <link linkend="NULL--CAPS"><type>NULL</type></link>, a default string is used.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>Arguments for <parameter>fmt</parameter>, if necessary
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-error-free" role="function">
+<title>lu_error_free ()</title>
+<indexterm zone="lu-error-free"><primary sortas="lu_error_free">lu_error_free</primary></indexterm><programlisting><link linkend="void">void</link>                lu_error_free                       (<link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Frees an <link linkend="lu-error"><type>lu_error</type></link> structure.
+</para><variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A pointer to a pointer to the structure to be freed.  The pointer is set
+to NULL after the error is freed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-error-is-success" role="function">
+<title>lu_error_is_success ()</title>
+<indexterm zone="lu-error-is-success"><primary sortas="lu_error_is_success">lu_error_is_success</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_error_is_success                 (<link linkend="lu-status-t">lu_status_t</link> status);</programlisting>
+<para>
+Check if the error code held by an error structure is a success code.
+</para><variablelist role="params">
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>An error code
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a <link linkend="gboolean"><type>gboolean</type></link> indicating whether or not the error is a success code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-error-is-warning" role="function">
+<title>lu_error_is_warning ()</title>
+<indexterm zone="lu-error-is-warning"><primary sortas="lu_error_is_warning">lu_error_is_warning</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_error_is_warning                 (<link linkend="lu-status-t">lu_status_t</link> status);</programlisting>
+<para>
+Check if the error code held by an error structure is a warning code.
+</para><variablelist role="params">
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>An error code
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a <link linkend="gboolean"><type>gboolean</type></link> indicating whether or not the error is a warning code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-error-is-error" role="function">
+<title>lu_error_is_error ()</title>
+<indexterm zone="lu-error-is-error"><primary sortas="lu_error_is_error">lu_error_is_error</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_error_is_error                   (<link linkend="lu-status-t">lu_status_t</link> status);</programlisting>
+<para>
+Check if the error code held by an error structure is an error code.
+</para><variablelist role="params">
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>An error code
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a <link linkend="gboolean"><type>gboolean</type></link> indicating whether or not the error is an error code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-strerror" role="function">
+<title>lu_strerror ()</title>
+<indexterm zone="lu-strerror"><primary sortas="lu_strerror">lu_strerror</primary></indexterm><programlisting>const <link linkend="char">char</link> *        lu_strerror                         (<link linkend="lu-error-t">lu_error_t</link> *error);</programlisting>
+<para>
+Converts an <link linkend="lu-error"><type>lu_error</type></link> structure to a string describing the error.
+If the <parameter>error->string</parameter> is <link linkend="NULL--CAPS"><literal>NULL</literal></link>, returns a text representation of
+ <parameter>error->code</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>An error
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>error string valid at least until <parameter>error</parameter> is freed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY libuser-config SYSTEM "xml/config.xml">
+<!ENTITY libuser-entity SYSTEM "xml/entity.xml">
+<!ENTITY libuser-error SYSTEM "xml/error.xml">
+<!ENTITY libuser-prompt SYSTEM "xml/prompt.xml">
+<!ENTITY libuser-user SYSTEM "xml/user.xml">
+<!ENTITY libuser-value SYSTEM "xml/value.xml">
+]>
+<book id="index">
+  <bookinfo>
+    <title>libuser Reference Manual</title>
+  </bookinfo>
+
+  <chapter>
+    <title>libuser</title>
+    &libuser-config;
+    &libuser-value;
+    &libuser-entity;
+    &libuser-error;
+    &libuser-prompt;
+    &libuser-user;
+  </chapter>
+</book>

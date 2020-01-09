@@ -1,0 +1,104 @@
+<refentry id="libuser-prompt">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-prompt.top_of_page">prompt</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>prompt</refname>
+<refpurpose>Sample prompter functions for use with the libuser library.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-prompt.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-prompt-console">lu_prompt_console</link>                   (<link linkend="struct-lu-prompt">struct lu_prompt</link> *prompts,
+                                                         <link linkend="int">int</link> count,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="struct-lu-error">struct lu_error</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-prompt-console-quiet">lu_prompt_console_quiet</link>             (<link linkend="struct-lu-prompt">struct lu_prompt</link> *prompts,
+                                                         <link linkend="int">int</link> count,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="struct-lu-error">struct lu_error</link> **error);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-prompt.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+prompt.h declares two predefined prompter functions which applications can use
+instead of providing their own.  These should suffice for most command-line
+applications.  Authors of graphical applications are encouraged to supply
+graphical implementations.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-prompt.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="lu-prompt-console" role="function">
+<title>lu_prompt_console ()</title>
+<indexterm zone="lu-prompt-console"><primary sortas="lu_prompt_console">lu_prompt_console</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_prompt_console                   (<link linkend="struct-lu-prompt">struct lu_prompt</link> *prompts,
+                                                         <link linkend="int">int</link> count,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="struct-lu-error">struct lu_error</link> **error);</programlisting>
+<para>
+Prompts the user using a text console.
+</para><variablelist role="params">
+<varlistentry><term><parameter>prompts</parameter>&#160;:</term>
+<listitem><simpara>An array of <link linkend="lu-prompt"><type>lu_prompt</type></link> structures.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>count</parameter>&#160;:</term>
+<listitem><simpara>The number of elements in the <parameter>prompts</parameter> array.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback_data</parameter>&#160;:</term>
+<listitem><simpara>Ignored.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>The location to store error information in the event of an error.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A <link linkend="gboolean"><type>gboolean</type></link> indicating success or failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-prompt-console-quiet" role="function">
+<title>lu_prompt_console_quiet ()</title>
+<indexterm zone="lu-prompt-console-quiet"><primary sortas="lu_prompt_console_quiet">lu_prompt_console_quiet</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_prompt_console_quiet             (<link linkend="struct-lu-prompt">struct lu_prompt</link> *prompts,
+                                                         <link linkend="int">int</link> count,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="struct-lu-error">struct lu_error</link> **error);</programlisting>
+<para>
+Prompts the user using a text console.  Unlike <link linkend="lu-prompt-console"><function>lu_prompt_console()</function></link>, this
+function will not prompt users for a question for which the calling
+application or module supplies a default, and will simply return the default.
+</para><variablelist role="params">
+<varlistentry><term><parameter>prompts</parameter>&#160;:</term>
+<listitem><simpara>An array of <link linkend="lu-prompt"><type>lu_prompt</type></link> structures.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>count</parameter>&#160;:</term>
+<listitem><simpara>The number of elements in the <parameter>prompts</parameter> array.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback_data</parameter>&#160;:</term>
+<listitem><simpara>Ignored.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>The location to store error information in the event of an error.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A <link linkend="gboolean"><type>gboolean</type></link> indicating success or failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

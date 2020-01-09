@@ -1,0 +1,647 @@
+<refentry id="libuser-entity">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-entity.top_of_page">entity</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>entity</refname>
+<refpurpose>Functions for manipulating lu_ent structures.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-entity.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+#define             <link linkend="LU-USERNAME--CAPS">LU_USERNAME</link>
+#define             <link linkend="LU-USERPASSWORD--CAPS">LU_USERPASSWORD</link>
+#define             <link linkend="LU-UIDNUMBER--CAPS">LU_UIDNUMBER</link>
+#define             <link linkend="LU-GIDNUMBER--CAPS">LU_GIDNUMBER</link>
+#define             <link linkend="LU-GECOS--CAPS">LU_GECOS</link>
+#define             <link linkend="LU-HOMEDIRECTORY--CAPS">LU_HOMEDIRECTORY</link>
+#define             <link linkend="LU-LOGINSHELL--CAPS">LU_LOGINSHELL</link>
+#define             <link linkend="LU-GROUPNAME--CAPS">LU_GROUPNAME</link>
+#define             <link linkend="LU-GROUPPASSWORD--CAPS">LU_GROUPPASSWORD</link>
+#define             <link linkend="LU-MEMBERNAME--CAPS">LU_MEMBERNAME</link>
+#define             <link linkend="LU-ADMINISTRATORNAME--CAPS">LU_ADMINISTRATORNAME</link>
+#define             <link linkend="LU-SHADOWNAME--CAPS">LU_SHADOWNAME</link>
+#define             <link linkend="LU-SHADOWPASSWORD--CAPS">LU_SHADOWPASSWORD</link>
+#define             <link linkend="LU-SHADOWLASTCHANGE--CAPS">LU_SHADOWLASTCHANGE</link>
+#define             <link linkend="LU-SHADOWMIN--CAPS">LU_SHADOWMIN</link>
+#define             <link linkend="LU-SHADOWMAX--CAPS">LU_SHADOWMAX</link>
+#define             <link linkend="LU-SHADOWWARNING--CAPS">LU_SHADOWWARNING</link>
+#define             <link linkend="LU-SHADOWINACTIVE--CAPS">LU_SHADOWINACTIVE</link>
+#define             <link linkend="LU-SHADOWEXPIRE--CAPS">LU_SHADOWEXPIRE</link>
+#define             <link linkend="LU-SHADOWFLAG--CAPS">LU_SHADOWFLAG</link>
+#define             <link linkend="LU-COMMONNAME--CAPS">LU_COMMONNAME</link>
+#define             <link linkend="LU-GIVENNAME--CAPS">LU_GIVENNAME</link>
+#define             <link linkend="LU-SN--CAPS">LU_SN</link>
+#define             <link linkend="LU-ROOMNUMBER--CAPS">LU_ROOMNUMBER</link>
+#define             <link linkend="LU-TELEPHONENUMBER--CAPS">LU_TELEPHONENUMBER</link>
+#define             <link linkend="LU-HOMEPHONE--CAPS">LU_HOMEPHONE</link>
+#define             <link linkend="LU-EMAIL--CAPS">LU_EMAIL</link>
+<link linkend="lu-ent-t">lu_ent_t</link> *          <link linkend="lu-ent-new">lu_ent_new</link>                          (void);
+<link linkend="void">void</link>                <link linkend="lu-ent-free">lu_ent_free</link>                         (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="void">void</link>                <link linkend="lu-ent-copy">lu_ent_copy</link>                         (<link linkend="lu-ent-t">lu_ent_t</link> *source,
+                                                         <link linkend="lu-ent-t">lu_ent_t</link> *dest);
+<link linkend="void">void</link>                <link linkend="lu-ent-commit">lu_ent_commit</link>                       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="void">void</link>                <link linkend="lu-ent-revert">lu_ent_revert</link>                       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="void">void</link>                <link linkend="lu-ent-add">lu_ent_add</link>                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="lu-ent-add-current">lu_ent_add_current</link>                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="lu-ent-clear">lu_ent_clear</link>                        (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr);
+<link linkend="void">void</link>                <link linkend="lu-ent-clear-all">lu_ent_clear_all</link>                    (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="void">void</link>                <link linkend="lu-ent-clear-all-current">lu_ent_clear_all_current</link>            (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="void">void</link>                <link linkend="lu-ent-clear-current">lu_ent_clear_current</link>                (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr);
+<link linkend="void">void</link>                <link linkend="lu-ent-del">lu_ent_del</link>                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="lu-ent-del-current">lu_ent_del_current</link>                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);
+<link linkend="void">void</link>                <link linkend="lu-ent-dump">lu_ent_dump</link>                         (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         <link linkend="FILE--CAPS">FILE</link> *fp);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-ent-get">lu_ent_get</link>                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);
+<link linkend="GList">GList</link> *             <link linkend="lu-ent-get-attributes">lu_ent_get_attributes</link>               (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="GList">GList</link> *             <link linkend="lu-ent-get-attributes-current">lu_ent_get_attributes_current</link>       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-ent-get-current">lu_ent_get_current</link>                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-ent-has">lu_ent_has</link>                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-ent-has-current">lu_ent_has_current</link>                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);
+<link linkend="void">void</link>                <link linkend="lu-ent-set">lu_ent_set</link>                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValueArray">GValueArray</link> *values);
+<link linkend="void">void</link>                <link linkend="lu-ent-set-current">lu_ent_set_current</link>                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValueArray">GValueArray</link> *values);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-entity.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+entity.h declares functions for manipulating lu_ent structures, which are used
+by libuser, its modules, and applications to hold data about a particular
+user or group account.
+</para>
+<para>
+Each struct lu_ent contains two sets of attributes: pending and current.
+The pending attributes are modified by default, the current attributes
+are modified by functions ending with _current.
+</para>
+<para>
+Each attribute contains a list of values.  The list is never empty; removing
+the last entry from the list removes the list completely.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-entity.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="LU-USERNAME--CAPS" role="macro">
+<title>LU_USERNAME</title>
+<indexterm zone="LU-USERNAME--CAPS"><primary sortas="LU_USERNAME">LU_USERNAME</primary></indexterm><programlisting>#define LU_USERNAME		"pw_name"
+</programlisting>
+<para>
+User name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-USERPASSWORD--CAPS" role="macro">
+<title>LU_USERPASSWORD</title>
+<indexterm zone="LU-USERPASSWORD--CAPS"><primary sortas="LU_USERPASSWORD">LU_USERPASSWORD</primary></indexterm><programlisting>#define LU_USERPASSWORD		"pw_passwd"
+</programlisting>
+<para>
+User password, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.  If shadow passwords are used, this is the
+placeholder password.
+</para></refsect2>
+<refsect2 id="LU-UIDNUMBER--CAPS" role="macro">
+<title>LU_UIDNUMBER</title>
+<indexterm zone="LU-UIDNUMBER--CAPS"><primary sortas="LU_UIDNUMBER">LU_UIDNUMBER</primary></indexterm><programlisting>#define LU_UIDNUMBER		"pw_uid"
+</programlisting>
+<para>
+User ID, an <link linkend="id-t"><type>id_t</type></link>.
+</para></refsect2>
+<refsect2 id="LU-GIDNUMBER--CAPS" role="macro">
+<title>LU_GIDNUMBER</title>
+<indexterm zone="LU-GIDNUMBER--CAPS"><primary sortas="LU_GIDNUMBER">LU_GIDNUMBER</primary></indexterm><programlisting>#define LU_GIDNUMBER		"pw_gid"
+</programlisting>
+<para>
+Group ID, an <link linkend="id-t"><type>id_t</type></link>.
+</para></refsect2>
+<refsect2 id="LU-GECOS--CAPS" role="macro">
+<title>LU_GECOS</title>
+<indexterm zone="LU-GECOS--CAPS"><primary sortas="LU_GECOS">LU_GECOS</primary></indexterm><programlisting>#define LU_GECOS		"pw_gecos"
+</programlisting>
+<para>
+Usually user's real name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.  Often contains user's real name,
+office name, office phone, home phone, separated by commas.
+</para></refsect2>
+<refsect2 id="LU-HOMEDIRECTORY--CAPS" role="macro">
+<title>LU_HOMEDIRECTORY</title>
+<indexterm zone="LU-HOMEDIRECTORY--CAPS"><primary sortas="LU_HOMEDIRECTORY">LU_HOMEDIRECTORY</primary></indexterm><programlisting>#define LU_HOMEDIRECTORY	"pw_dir"
+</programlisting>
+<para>
+User's home directory, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-LOGINSHELL--CAPS" role="macro">
+<title>LU_LOGINSHELL</title>
+<indexterm zone="LU-LOGINSHELL--CAPS"><primary sortas="LU_LOGINSHELL">LU_LOGINSHELL</primary></indexterm><programlisting>#define LU_LOGINSHELL		"pw_shell"
+</programlisting>
+<para>
+User's login shell, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-GROUPNAME--CAPS" role="macro">
+<title>LU_GROUPNAME</title>
+<indexterm zone="LU-GROUPNAME--CAPS"><primary sortas="LU_GROUPNAME">LU_GROUPNAME</primary></indexterm><programlisting>#define LU_GROUPNAME		"gr_name"
+</programlisting>
+<para>
+Group name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-GROUPPASSWORD--CAPS" role="macro">
+<title>LU_GROUPPASSWORD</title>
+<indexterm zone="LU-GROUPPASSWORD--CAPS"><primary sortas="LU_GROUPPASSWORD">LU_GROUPPASSWORD</primary></indexterm><programlisting>#define LU_GROUPPASSWORD	"gr_passwd"
+</programlisting>
+<para>
+Group password, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-MEMBERNAME--CAPS" role="macro">
+<title>LU_MEMBERNAME</title>
+<indexterm zone="LU-MEMBERNAME--CAPS"><primary sortas="LU_MEMBERNAME">LU_MEMBERNAME</primary></indexterm><programlisting>#define LU_MEMBERNAME		"gr_mem"
+</programlisting>
+<para>
+Group member names; each member is represented by a separate <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>
+value.
+</para></refsect2>
+<refsect2 id="LU-ADMINISTRATORNAME--CAPS" role="macro">
+<title>LU_ADMINISTRATORNAME</title>
+<indexterm zone="LU-ADMINISTRATORNAME--CAPS"><primary sortas="LU_ADMINISTRATORNAME">LU_ADMINISTRATORNAME</primary></indexterm><programlisting>#define LU_ADMINISTRATORNAME	"gr_adm"
+</programlisting>
+<para>
+Group administrator names; each administrator is represented by a separate
+<link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link> value.
+</para></refsect2>
+<refsect2 id="LU-SHADOWNAME--CAPS" role="macro">
+<title>LU_SHADOWNAME</title>
+<indexterm zone="LU-SHADOWNAME--CAPS"><primary sortas="LU_SHADOWNAME">LU_SHADOWNAME</primary></indexterm><programlisting>#define LU_SHADOWNAME		LU_USERNAME
+</programlisting>
+<para>
+User name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.  Note that <link linkend="LU-SHADOWNAME--CAPS"><literal>LU_SHADOWNAME</literal></link> is not distinct from
+<link linkend="LU-USERNAME--CAPS"><literal>LU_USERNAME</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWPASSWORD--CAPS" role="macro">
+<title>LU_SHADOWPASSWORD</title>
+<indexterm zone="LU-SHADOWPASSWORD--CAPS"><primary sortas="LU_SHADOWPASSWORD">LU_SHADOWPASSWORD</primary></indexterm><programlisting>#define LU_SHADOWPASSWORD	"sp_pwdp"
+</programlisting>
+<para>
+User password in the shadow file, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWLASTCHANGE--CAPS" role="macro">
+<title>LU_SHADOWLASTCHANGE</title>
+<indexterm zone="LU-SHADOWLASTCHANGE--CAPS"><primary sortas="LU_SHADOWLASTCHANGE">LU_SHADOWLASTCHANGE</primary></indexterm><programlisting>#define LU_SHADOWLASTCHANGE	"sp_lstchg"
+</programlisting>
+<para>
+The number of days since the epoch to the day when the password was last
+changed, a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWMIN--CAPS" role="macro">
+<title>LU_SHADOWMIN</title>
+<indexterm zone="LU-SHADOWMIN--CAPS"><primary sortas="LU_SHADOWMIN">LU_SHADOWMIN</primary></indexterm><programlisting>#define LU_SHADOWMIN		"sp_min"
+</programlisting>
+<para>
+Minimum password lifetime in days before it can be changed, a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWMAX--CAPS" role="macro">
+<title>LU_SHADOWMAX</title>
+<indexterm zone="LU-SHADOWMAX--CAPS"><primary sortas="LU_SHADOWMAX">LU_SHADOWMAX</primary></indexterm><programlisting>#define LU_SHADOWMAX		"sp_max"
+</programlisting>
+<para>
+Maximum password lifetime in days before it must be changed, a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWWARNING--CAPS" role="macro">
+<title>LU_SHADOWWARNING</title>
+<indexterm zone="LU-SHADOWWARNING--CAPS"><primary sortas="LU_SHADOWWARNING">LU_SHADOWWARNING</primary></indexterm><programlisting>#define LU_SHADOWWARNING	"sp_warn"
+</programlisting>
+<para>
+Days before the password lifetime expires when the user should start to be
+warned, a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SHADOWINACTIVE--CAPS" role="macro">
+<title>LU_SHADOWINACTIVE</title>
+<indexterm zone="LU-SHADOWINACTIVE--CAPS"><primary sortas="LU_SHADOWINACTIVE">LU_SHADOWINACTIVE</primary></indexterm><programlisting>#define LU_SHADOWINACTIVE	"sp_inact"
+</programlisting>
+<para>
+Days after the password lifetime expires when the user account is disabled
+(because it is considered inactive), a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.  -1 to disable inactive
+account disabling.
+</para></refsect2>
+<refsect2 id="LU-SHADOWEXPIRE--CAPS" role="macro">
+<title>LU_SHADOWEXPIRE</title>
+<indexterm zone="LU-SHADOWEXPIRE--CAPS"><primary sortas="LU_SHADOWEXPIRE">LU_SHADOWEXPIRE</primary></indexterm><programlisting>#define LU_SHADOWEXPIRE		"sp_expire"
+</programlisting>
+<para>
+The number of days since the epoch to the day when the account expires and
+is disabled, a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.  -1 to disable account expiration.
+</para></refsect2>
+<refsect2 id="LU-SHADOWFLAG--CAPS" role="macro">
+<title>LU_SHADOWFLAG</title>
+<indexterm zone="LU-SHADOWFLAG--CAPS"><primary sortas="LU_SHADOWFLAG">LU_SHADOWFLAG</primary></indexterm><programlisting>#define LU_SHADOWFLAG		"sp_flag"
+</programlisting>
+<para>
+A reserved value "for future use", a <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link>.  In most cases the value is
+-1.
+</para></refsect2>
+<refsect2 id="LU-COMMONNAME--CAPS" role="macro">
+<title>LU_COMMONNAME</title>
+<indexterm zone="LU-COMMONNAME--CAPS"><primary sortas="LU_COMMONNAME">LU_COMMONNAME</primary></indexterm><programlisting>#define LU_COMMONNAME		"cn"
+</programlisting>
+<para>
+User's real name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-GIVENNAME--CAPS" role="macro">
+<title>LU_GIVENNAME</title>
+<indexterm zone="LU-GIVENNAME--CAPS"><primary sortas="LU_GIVENNAME">LU_GIVENNAME</primary></indexterm><programlisting>#define LU_GIVENNAME		"givenName"
+</programlisting>
+<para>
+User's given name, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-SN--CAPS" role="macro">
+<title>LU_SN</title>
+<indexterm zone="LU-SN--CAPS"><primary sortas="LU_SN">LU_SN</primary></indexterm><programlisting>#define LU_SN			"sn"
+</programlisting>
+<para>
+User's surname, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-ROOMNUMBER--CAPS" role="macro">
+<title>LU_ROOMNUMBER</title>
+<indexterm zone="LU-ROOMNUMBER--CAPS"><primary sortas="LU_ROOMNUMBER">LU_ROOMNUMBER</primary></indexterm><programlisting>#define LU_ROOMNUMBER		"roomNumber"
+</programlisting>
+<para>
+User's room number, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-TELEPHONENUMBER--CAPS" role="macro">
+<title>LU_TELEPHONENUMBER</title>
+<indexterm zone="LU-TELEPHONENUMBER--CAPS"><primary sortas="LU_TELEPHONENUMBER">LU_TELEPHONENUMBER</primary></indexterm><programlisting>#define LU_TELEPHONENUMBER	"telephoneNumber"
+</programlisting>
+<para>
+User's telephone number, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-HOMEPHONE--CAPS" role="macro">
+<title>LU_HOMEPHONE</title>
+<indexterm zone="LU-HOMEPHONE--CAPS"><primary sortas="LU_HOMEPHONE">LU_HOMEPHONE</primary></indexterm><programlisting>#define LU_HOMEPHONE		"homePhone"
+</programlisting>
+<para>
+User's home telephone number, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="LU-EMAIL--CAPS" role="macro">
+<title>LU_EMAIL</title>
+<indexterm zone="LU-EMAIL--CAPS"><primary sortas="LU_EMAIL">LU_EMAIL</primary></indexterm><programlisting>#define LU_EMAIL		"mail"
+</programlisting>
+<para>
+User's email address, a <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para></refsect2>
+<refsect2 id="lu-ent-new" role="function">
+<title>lu_ent_new ()</title>
+<indexterm zone="lu-ent-new"><primary sortas="lu_ent_new">lu_ent_new</primary></indexterm><programlisting><link linkend="lu-ent-t">lu_ent_t</link> *          lu_ent_new                          (void);</programlisting>
+<para>
+Creates a new, empty struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the created entity, which should be deallocated by <link linkend="lu-ent-free"><function>lu_ent_free()</function></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-free" role="function">
+<title>lu_ent_free ()</title>
+<indexterm zone="lu-ent-free"><primary sortas="lu_ent_free">lu_ent_free</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_free                         (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Frees an struct <link linkend="lu-ent"><type>lu_ent</type></link>, including all strings it owns.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>the entity to free
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-copy" role="function">
+<title>lu_ent_copy ()</title>
+<indexterm zone="lu-ent-copy"><primary sortas="lu_ent_copy">lu_ent_copy</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_copy                         (<link linkend="lu-ent-t">lu_ent_t</link> *source,
+                                                         <link linkend="lu-ent-t">lu_ent_t</link> *dest);</programlisting>
+<para>
+Copies one struct <link linkend="lu-ent"><type>lu_ent</type></link> over another.
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>the entity to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>the destination space, must be already allocated by <link linkend="lu-ent-new"><function>lu_ent_new()</function></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-commit" role="function">
+<title>lu_ent_commit ()</title>
+<indexterm zone="lu-ent-commit"><primary sortas="lu_ent_commit">lu_ent_commit</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_commit                       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Sets pending attribute changes as current values of the entity.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-revert" role="function">
+<title>lu_ent_revert ()</title>
+<indexterm zone="lu-ent-revert"><primary sortas="lu_ent_revert">lu_ent_revert</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_revert                       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Replaces all attributes with changes pending by their current values,
+forgetting the pending changes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-add" role="function">
+<title>lu_ent_add ()</title>
+<indexterm zone="lu-ent-add"><primary sortas="lu_ent_add">lu_ent_add</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_add                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Appends <parameter>value</parameter> to pending attribute <parameter>attr</parameter> in a struct <link linkend="lu-ent"><type>lu_ent</type></link> if <parameter>value</parameter>
+is not yet in the list of <parameter>attr</parameter> values.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>new attribute value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-add-current" role="function">
+<title>lu_ent_add_current ()</title>
+<indexterm zone="lu-ent-add-current"><primary sortas="lu_ent_add_current">lu_ent_add_current</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_add_current                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Appends <parameter>value</parameter> to current attribute <parameter>attr</parameter> in a struct <link linkend="lu-ent"><type>lu_ent</type></link> if <parameter>value</parameter>
+is not yet in the list of <parameter>attr</parameter> values.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>new attribute value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-clear" role="function">
+<title>lu_ent_clear ()</title>
+<indexterm zone="lu-ent-clear"><primary sortas="lu_ent_clear">lu_ent_clear</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_clear                        (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr);</programlisting>
+<para>
+Removes all values of pending attribute <parameter>attribute</parameter> from a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-clear-all" role="function">
+<title>lu_ent_clear_all ()</title>
+<indexterm zone="lu-ent-clear-all"><primary sortas="lu_ent_clear_all">lu_ent_clear_all</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_clear_all                    (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Removes all pending attributes from a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-clear-all-current" role="function">
+<title>lu_ent_clear_all_current ()</title>
+<indexterm zone="lu-ent-clear-all-current"><primary sortas="lu_ent_clear_all_current">lu_ent_clear_all_current</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_clear_all_current            (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Removes all current attributes from a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-clear-current" role="function">
+<title>lu_ent_clear_current ()</title>
+<indexterm zone="lu-ent-clear-current"><primary sortas="lu_ent_clear_current">lu_ent_clear_current</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_clear_current                (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr);</programlisting>
+<para>
+Removes all values of current attribute <parameter>attribute</parameter> from a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-del" role="function">
+<title>lu_ent_del ()</title>
+<indexterm zone="lu-ent-del"><primary sortas="lu_ent_del">lu_ent_del</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_del                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Removes a pending attribute <parameter>attr</parameter> value <parameter>value</parameter> from a struct <link linkend="lu-ent"><type>lu_ent</type></link>, if
+present.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>attribute value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-del-current" role="function">
+<title>lu_ent_del_current ()</title>
+<indexterm zone="lu-ent-del-current"><primary sortas="lu_ent_del_current">lu_ent_del_current</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_del_current                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Removes a current attribute <parameter>attr</parameter> value <parameter>value</parameter> from a struct <link linkend="lu-ent"><type>lu_ent</type></link>, if
+present.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>attribute value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-dump" role="function">
+<title>lu_ent_dump ()</title>
+<indexterm zone="lu-ent-dump"><primary sortas="lu_ent_dump">lu_ent_dump</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_dump                         (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         <link linkend="FILE--CAPS">FILE</link> *fp);</programlisting>
+<para>
+Dumps an struct <link linkend="lu-ent"><type>lu_ent</type></link> to a file in text form, for debugging.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>the entity to dump
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fp</parameter>&#160;:</term>
+<listitem><simpara>destination file
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-get" role="function">
+<title>lu_ent_get ()</title>
+<indexterm zone="lu-ent-get"><primary sortas="lu_ent_get">lu_ent_get</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_ent_get                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);</programlisting>
+<para>
+Returns values associated with a pending attribute in a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>an array of values, valid at least until they are modified or
+deleted. The array is never empty and it should not be freed by the caller.
+Returns <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the attribute is not present at all or on error.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-get-attributes" role="function">
+<title>lu_ent_get_attributes ()</title>
+<indexterm zone="lu-ent-get-attributes"><primary sortas="lu_ent_get_attributes">lu_ent_get_attributes</primary></indexterm><programlisting><link linkend="GList">GList</link> *             lu_ent_get_attributes               (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Returns a list of all pending attributes in a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a <link linkend="GList"><type>GList</type></link> of attribute names.  The list (but not the strings
+in the list) should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-get-attributes-current" role="function">
+<title>lu_ent_get_attributes_current ()</title>
+<indexterm zone="lu-ent-get-attributes-current"><primary sortas="lu_ent_get_attributes_current">lu_ent_get_attributes_current</primary></indexterm><programlisting><link linkend="GList">GList</link> *             lu_ent_get_attributes_current       (<link linkend="lu-ent-t">lu_ent_t</link> *ent);</programlisting>
+<para>
+Returns a list of all current attributes in a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a <link linkend="GList"><type>GList</type></link> of attribute names.  The list (but not the strings
+in the list) should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-get-current" role="function">
+<title>lu_ent_get_current ()</title>
+<indexterm zone="lu-ent-get-current"><primary sortas="lu_ent_get_current">lu_ent_get_current</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_ent_get_current                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);</programlisting>
+<para>
+Returns values associated with a current attribute in a struct <link linkend="lu-ent"><type>lu_ent</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a list of values, valid at least until they are modified or deleted.
+The list should not be freed by the caller.  Returns <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the attribute is
+not present at all or on error.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-has" role="function">
+<title>lu_ent_has ()</title>
+<indexterm zone="lu-ent-has"><primary sortas="lu_ent_has">lu_ent_has</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_ent_has                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);</programlisting>
+<para>
+Checks if a struct <link linkend="lu-ent"><type>lu_ent</type></link> has at least one pending attribute <parameter>attribute</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE if <parameter>attribute</parameter> has a value in <parameter>ent</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-has-current" role="function">
+<title>lu_ent_has_current ()</title>
+<indexterm zone="lu-ent-has-current"><primary sortas="lu_ent_has_current">lu_ent_has_current</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_ent_has_current                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attribute);</programlisting>
+<para>
+Checks if a struct <link linkend="lu-ent"><type>lu_ent</type></link> has at least one current attribute <parameter>attribute</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE if <parameter>attribute</parameter> has a value in <parameter>ent</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-set" role="function">
+<title>lu_ent_set ()</title>
+<indexterm zone="lu-ent-set"><primary sortas="lu_ent_set">lu_ent_set</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_set                          (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValueArray">GValueArray</link> *values);</programlisting>
+<para>
+Replaces all pending attributes <parameter>attr</parameter> in a struct <link linkend="lu-ent"><type>lu_ent</type></link> by a copy of
+<parameter>values</parameter>.  If <parameter>values</parameter> is empty, it removes the pending attribute completely.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>values</parameter>&#160;:</term>
+<listitem><simpara>an array of values
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-ent-set-current" role="function">
+<title>lu_ent_set_current ()</title>
+<indexterm zone="lu-ent-set-current"><primary sortas="lu_ent_set_current">lu_ent_set_current</primary></indexterm><programlisting><link linkend="void">void</link>                lu_ent_set_current                  (<link linkend="lu-ent-t">lu_ent_t</link> *ent,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="GValueArray">GValueArray</link> *values);</programlisting>
+<para>
+Replaces all current attributes <parameter>attr</parameter> in a struct <link linkend="lu-ent"><type>lu_ent</type></link> by a copy of
+<parameter>values</parameter>.  If <parameter>values</parameter> is empty, it removes the current attribute completely.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>values</parameter>&#160;:</term>
+<listitem><simpara>an array of values
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

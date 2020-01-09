@@ -1,0 +1,170 @@
+<refentry id="libuser-value">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-value.top_of_page">value</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>value</refname>
+<refpurpose>Simplified interface to GValue types used in libuser entities.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-value.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+#define             <link linkend="LU-VALUE-INVALID-ID--CAPS">LU_VALUE_INVALID_ID</link>
+<link linkend="char">char</link> *              <link linkend="lu-value-strdup">lu_value_strdup</link>                     (const <link linkend="GValue">GValue</link> *value);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-value-init-set-attr-from-string">lu_value_init_set_attr_from_string</link>  (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="char">char</link> *string,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="void">void</link>                <link linkend="lu-value-init-set-id">lu_value_init_set_id</link>                (<link linkend="GValue">GValue</link> *value,
+                                                         <link linkend="id-t">id_t</link> id);
+<link linkend="id-t">id_t</link>                <link linkend="lu-value-get-id">lu_value_get_id</link>                     (const <link linkend="GValue">GValue</link> *value);
+<link linkend="int">int</link>                 <link linkend="lu-values-equal">lu_values_equal</link>                     (const <link linkend="GValue">GValue</link> *a,
+                                                         const <link linkend="GValue">GValue</link> *b);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-value.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Libuser entities store attribute values as <link linkend="GValue"><type>GValue</type></link>, which allows representing
+any possible data type.  Only a few types are needed in practice; the only
+types applications should hard-code are <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link> and <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>
+(<link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link> can usually be used as a fallback for other number types).
+</para>
+<para>
+The only currently used data types that are not conveniently supported using
+the above types are <link linkend="uid-t"><type>uid_t</type></link> and <link linkend="gid-t"><type>gid_t</type></link> (which can be together represented in
+<link linkend="id-t"><type>id_t</type></link>), because they can support values outside of the range of <link linkend="glong"><type>glong</type></link>.  Helper
+functions are provided to convert values between <link linkend="id-t"><type>id_t</type></link> and <link linkend="GValue"><type>GValue</type></link>, even if the
+value is stored using <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.  The <link linkend="GValue"><type>GValue</type></link> types used for storing <link linkend="id-t"><type>id_t</type></link>
+values are an internal implementation detail of libuser and applications should
+not rely on them.
+</para>
+<para>
+Values of each attribute are expected to have a specific type, documented in
+the documentation of the specific attribute name.  Using other types (e.g.
+using <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link> for <link linkend="LU-UIDNUMBER--CAPS"><literal>LU_UIDNUMBER</literal></link>) is not allowed and results in undefined
+behavior.. You can use <link linkend="lu-value-strdup"><function>lu_value_strdup()</function></link> and
+<link linkend="lu-value-init-set-attr-from-string"><function>lu_value_init_set_attr_from_string()</function></link> for conversion between strings and values
+appropriate for a specific attribute.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-value.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="LU-VALUE-INVALID-ID--CAPS" role="macro">
+<title>LU_VALUE_INVALID_ID</title>
+<indexterm zone="LU-VALUE-INVALID-ID--CAPS"><primary sortas="LU_VALUE_INVALID_ID">LU_VALUE_INVALID_ID</primary></indexterm><programlisting>#define LU_VALUE_INVALID_ID ((id_t)-1)
+</programlisting>
+<para>
+An <link linkend="id-t"><type>id_t</type></link> value that matches no valid user or group ID.
+</para></refsect2>
+<refsect2 id="lu-value-strdup" role="function">
+<title>lu_value_strdup ()</title>
+<indexterm zone="lu-value-strdup"><primary sortas="lu_value_strdup">lu_value_strdup</primary></indexterm><programlisting><link linkend="char">char</link> *              lu_value_strdup                     (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Converts <parameter>value</parameter>, of any type used by libuser, to a string.  Preferable
+to hard-coding checks for expected value types.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>value
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>string, should be freed by <link linkend="g-free"><function>g_free()</function></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-value-init-set-attr-from-string" role="function">
+<title>lu_value_init_set_attr_from_string ()</title>
+<indexterm zone="lu-value-init-set-attr-from-string"><primary sortas="lu_value_init_set_attr_from_string">lu_value_init_set_attr_from_string</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_value_init_set_attr_from_string  (<link linkend="GValue">GValue</link> *value,
+                                                         const <link linkend="char">char</link> *attr,
+                                                         const <link linkend="char">char</link> *string,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Initializes a zero-filled (uninitialized) <parameter>value</parameter> for storing a value of
+attribute <parameter>attr</parameter> and sets it to the contents of <parameter>string</parameter>.  To see whether a
+specific type is used for an attribute, see the documentation of that
+attribute.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>#GValue
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>attribute name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>string</parameter>&#160;:</term>
+<listitem><simpara>the string to convert
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if <parameter>attr</parameter> is
+unknown
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> on error or if <parameter>attr</parameter> is unknown
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-value-init-set-id" role="function">
+<title>lu_value_init_set_id ()</title>
+<indexterm zone="lu-value-init-set-id"><primary sortas="lu_value_init_set_id">lu_value_init_set_id</primary></indexterm><programlisting><link linkend="void">void</link>                lu_value_init_set_id                (<link linkend="GValue">GValue</link> *value,
+                                                         <link linkend="id-t">id_t</link> id);</programlisting>
+<para>
+Initializes a zero-filled (uninitialized) <parameter>value</parameter> with an unspecified type and
+sets it to <parameter>id</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>#GValue
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>user or group ID.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-value-get-id" role="function">
+<title>lu_value_get_id ()</title>
+<indexterm zone="lu-value-get-id"><primary sortas="lu_value_get_id">lu_value_get_id</primary></indexterm><programlisting><link linkend="id-t">id_t</link>                lu_value_get_id                     (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Get the contents of <parameter>value</parameter>. <parameter>value</parameter> should be initialized by
+<link linkend="lu-value-init-set-id"><function>lu_value_init_set_id()</function></link> or use <link linkend="G-TYPE-LONG--CAPS"><literal>G_TYPE_LONG</literal></link> or <link linkend="G-TYPE-STRING--CAPS"><literal>G_TYPE_STRING</literal></link>.
+</para>
+<para>
+If <parameter>value</parameter> does not contain a valid <link linkend="id-t"><type>id_t</type></link> value, <link linkend="LU-VALUE-INVALID-ID--CAPS"><literal>LU_VALUE_INVALID_ID</literal></link>
+is returned.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>#GValue
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>ID value or <link linkend="LU-VALUE-INVALID-ID--CAPS"><literal>LU_VALUE_INVALID_ID</literal></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-values-equal" role="function">
+<title>lu_values_equal ()</title>
+<indexterm zone="lu-values-equal"><primary sortas="lu_values_equal">lu_values_equal</primary></indexterm><programlisting><link linkend="int">int</link>                 lu_values_equal                     (const <link linkend="GValue">GValue</link> *a,
+                                                         const <link linkend="GValue">GValue</link> *b);</programlisting>
+<para>
+Check whether <parameter>a</parameter> and <parameter>b</parameter> have the same type and value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>#GValue
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>#GValue
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>#TRUE if <parameter>a</parameter> and <parameter>b</parameter> have the same type and value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

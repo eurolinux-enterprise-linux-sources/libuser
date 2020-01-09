@@ -1,0 +1,962 @@
+<refentry id="libuser-user">
+<refmeta>
+<refentrytitle role="top_of_page" id="libuser-user.top_of_page">user</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBUSER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>user</refname>
+<refpurpose>Functions for initializing the library, looking up information, and making
+changes to the system information store.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libuser-user.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+<link linkend="lu-context-t">lu_context_t</link> *      <link linkend="lu-start">lu_start</link>                            (const <link linkend="char">char</link> *authname,
+                                                         <link linkend="lu-entity-type-t">lu_entity_type_t</link> auth_type,
+                                                         const <link linkend="char">char</link> *modules,
+                                                         const <link linkend="char">char</link> *create_modules,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> *prompter,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="void">void</link>                <link linkend="lu-end">lu_end</link>                              (<link linkend="lu-context-t">lu_context_t</link> *context);
+<link linkend="void">void</link>                <link linkend="lu-set-prompter">lu_set_prompter</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> *prompter,
+                                                         <link linkend="gpointer">gpointer</link> callback_data);
+<link linkend="void">void</link>                <link linkend="lu-get-prompter">lu_get_prompter</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> **prompter,
+                                                         <link linkend="gpointer">gpointer</link> *callback_data);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-set-modules">lu_set_modules</link>                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *list,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+const <link linkend="char">char</link> *        <link linkend="lu-get-modules">lu_get_modules</link>                      (<link linkend="lu-context-t">lu_context_t</link> *context);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-uses-elevated-privileges">lu_uses_elevated_privileges</link>         (<link linkend="lu-context-t">lu_context_t</link> *context);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-lookup-name">lu_user_lookup_name</link>                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-lookup-id">lu_user_lookup_id</link>                   (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="uid-t">uid_t</link> uid,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-default">lu_user_default</link>                     (<link linkend="lu-context-t">lu_context_t</link> *ctx,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="gboolean">gboolean</link> system_account,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-add">lu_user_add</link>                         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-modify">lu_user_modify</link>                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-delete">lu_user_delete</link>                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-setpass">lu_user_setpass</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         const <link linkend="char">char</link> *newpass,
+                                                         <link linkend="gboolean">gboolean</link> crypted,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-removepass">lu_user_removepass</link>                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-lock">lu_user_lock</link>                        (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-unlock">lu_user_unlock</link>                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-unlock-nonempty">lu_user_unlock_nonempty</link>             (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-user-islocked">lu_user_islocked</link>                    (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-users-enumerate">lu_users_enumerate</link>                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-users-enumerate-by-group">lu_users_enumerate_by_group</link>         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *group,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GPtrArray">GPtrArray</link> *         <link linkend="lu-users-enumerate-full">lu_users_enumerate_full</link>             (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-lookup-name">lu_group_lookup_name</link>                (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-lookup-id">lu_group_lookup_id</link>                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="gid-t">gid_t</link> gid,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-default">lu_group_default</link>                    (<link linkend="lu-context-t">lu_context_t</link> *ctx,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="gboolean">gboolean</link> system_account,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-add">lu_group_add</link>                        (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-modify">lu_group_modify</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-delete">lu_group_delete</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-setpass">lu_group_setpass</link>                    (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         const <link linkend="char">char</link> *newpass,
+                                                         <link linkend="gboolean">gboolean</link> crypted,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-removepass">lu_group_removepass</link>                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-lock">lu_group_lock</link>                       (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-unlock">lu_group_unlock</link>                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-unlock-nonempty">lu_group_unlock_nonempty</link>            (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="lu-group-islocked">lu_group_islocked</link>                   (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-groups-enumerate">lu_groups_enumerate</link>                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GValueArray">GValueArray</link> *       <link linkend="lu-groups-enumerate-by-user">lu_groups_enumerate_by_user</link>         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *user,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+<link linkend="GPtrArray">GPtrArray</link> *         <link linkend="lu-groups-enumerate-full">lu_groups_enumerate_full</link>            (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="libuser-user.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+user.h contains declarations for functions which start up and shut down the
+libuser library, and for functions which perform lookup queries and
+modifications of the system information store.
+</para>
+</refsect1>
+
+<refsect1 id="libuser-user.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="lu-start" role="function">
+<title>lu_start ()</title>
+<indexterm zone="lu-start"><primary sortas="lu_start">lu_start</primary></indexterm><programlisting><link linkend="lu-context-t">lu_context_t</link> *      lu_start                            (const <link linkend="char">char</link> *authname,
+                                                         <link linkend="lu-entity-type-t">lu_entity_type_t</link> auth_type,
+                                                         const <link linkend="char">char</link> *modules,
+                                                         const <link linkend="char">char</link> *create_modules,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> *prompter,
+                                                         <link linkend="gpointer">gpointer</link> callback_data,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Initializes the libuser library.
+</para><variablelist role="params">
+<varlistentry><term><parameter>authname</parameter>&#160;:</term>
+<listitem><simpara>suggested client name to use when connecting to servers, or <link linkend="NULL--CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auth_type</parameter>&#160;:</term>
+<listitem><simpara>whether auth_name is a user or a group
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modules</parameter>&#160;:</term>
+<listitem><simpara>a list of modules to use for queries (separated by whitespace or
+commas), or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to use modules specified in the config file
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>create_modules</parameter>&#160;:</term>
+<listitem><simpara>a list of modules to use for entity creation (separated by
+whitespace or commas), or <link linkend="NULL--CAPS"><literal>NULL</literal></link> to use modules specified in the config file
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>prompter</parameter>&#160;:</term>
+<listitem><simpara>a function to use for getting information from the user
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback_data</parameter>&#160;:</term>
+<listitem><simpara>data for <parameter>prompter</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a context which should be freed by <link linkend="lu-end"><function>lu_end()</function></link> on success, <link linkend="NULL--CAPS"><literal>NULL</literal></link> on
+failure
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-end" role="function">
+<title>lu_end ()</title>
+<indexterm zone="lu-end"><primary sortas="lu_end">lu_end</primary></indexterm><programlisting><link linkend="void">void</link>                lu_end                              (<link linkend="lu-context-t">lu_context_t</link> *context);</programlisting>
+<para>
+Destroys a libuser library context
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-set-prompter" role="function">
+<title>lu_set_prompter ()</title>
+<indexterm zone="lu-set-prompter"><primary sortas="lu_set_prompter">lu_set_prompter</primary></indexterm><programlisting><link linkend="void">void</link>                lu_set_prompter                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> *prompter,
+                                                         <link linkend="gpointer">gpointer</link> callback_data);</programlisting>
+<para>
+Changes the prompter function in a context
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>prompter</parameter>&#160;:</term>
+<listitem><simpara>a new function to user for getting information from the user
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback_data</parameter>&#160;:</term>
+<listitem><simpara>data for <parameter>prompter</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-get-prompter" role="function">
+<title>lu_get_prompter ()</title>
+<indexterm zone="lu-get-prompter"><primary sortas="lu_get_prompter">lu_get_prompter</primary></indexterm><programlisting><link linkend="void">void</link>                lu_get_prompter                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="lu-prompt-fn">lu_prompt_fn</link> **prompter,
+                                                         <link linkend="gpointer">gpointer</link> *callback_data);</programlisting>
+<para>
+Gets current prompter function from a context
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>prompter</parameter>&#160;:</term>
+<listitem><simpara>if not <link linkend="NULL--CAPS"><literal>NULL</literal></link>, points to a place where the current prompter function
+will be stored
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback_data</parameter>&#160;:</term>
+<listitem><simpara>if not <link linkend="NULL--CAPS"><literal>NULL</literal></link>, points to a place where the current prompter
+function data will be stored
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-set-modules" role="function">
+<title>lu_set_modules ()</title>
+<indexterm zone="lu-set-modules"><primary sortas="lu_set_modules">lu_set_modules</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_set_modules                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *list,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Replaces the current set of modules for queries in <parameter>context</parameter> to <parameter>list</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>a list of modules (separated by whitespace or commas)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success, <link linkend="FALSE--CAPS"><literal>FALSE</literal></link> on failure
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-get-modules" role="function">
+<title>lu_get_modules ()</title>
+<indexterm zone="lu-get-modules"><primary sortas="lu_get_modules">lu_get_modules</primary></indexterm><programlisting>const <link linkend="char">char</link> *        lu_get_modules                      (<link linkend="lu-context-t">lu_context_t</link> *context);</programlisting>
+<para>
+Returns a list of modules for queries in <parameter>context</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a list of modules separated by spaces, or <link linkend="NULL--CAPS"><literal>NULL</literal></link> if the list of
+modules is empty.  The list should not be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-uses-elevated-privileges" role="function">
+<title>lu_uses_elevated_privileges ()</title>
+<indexterm zone="lu-uses-elevated-privileges"><primary sortas="lu_uses_elevated_privileges">lu_uses_elevated_privileges</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_uses_elevated_privileges         (<link linkend="lu-context-t">lu_context_t</link> *context);</programlisting>
+<para>
+Checks if any module uses elevated privileges (e.g. modifies files that
+normal users can't modify).
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE if at least one module uses elevated privileges
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-lookup-name" role="function">
+<title>lu_user_lookup_name ()</title>
+<indexterm zone="lu-user-lookup-name"><primary sortas="lu_user_lookup_name">lu_user_lookup_name</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_lookup_name                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Looks up an user by name.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity filled with received information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-lookup-id" role="function">
+<title>lu_user_lookup_id ()</title>
+<indexterm zone="lu-user-lookup-id"><primary sortas="lu_user_lookup_id">lu_user_lookup_id</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_lookup_id                   (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="uid-t">uid_t</link> uid,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Looks up an user by UID.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>user ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity filled with received information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-default" role="function">
+<title>lu_user_default ()</title>
+<indexterm zone="lu-user-default"><primary sortas="lu_user_default">lu_user_default</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_default                     (<link linkend="lu-context-t">lu_context_t</link> *ctx,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="gboolean">gboolean</link> system_account,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent);</programlisting>
+<para>
+Fills out an user entity as specified by the config file and modules
+to prepare for creation of the user.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ctx</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>new user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>system_account</parameter>&#160;:</term>
+<listitem><simpara>non-zero if the user is a system user
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-add" role="function">
+<title>lu_user_add ()</title>
+<indexterm zone="lu-user-add"><primary sortas="lu_user_add">lu_user_add</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_add                         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Creates an user in all modules specified for entity creation.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with resulting account
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-modify" role="function">
+<title>lu_user_modify ()</title>
+<indexterm zone="lu-user-modify"><primary sortas="lu_user_modify">lu_user_modify</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_modify                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Modifies an user entity.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity with pending modifications, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-delete" role="function">
+<title>lu_user_delete ()</title>
+<indexterm zone="lu-user-delete"><primary sortas="lu_user_delete">lu_user_delete</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_delete                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Deletes an user.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-setpass" role="function">
+<title>lu_user_setpass ()</title>
+<indexterm zone="lu-user-setpass"><primary sortas="lu_user_setpass">lu_user_setpass</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_setpass                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         const <link linkend="char">char</link> *newpass,
+                                                         <link linkend="gboolean">gboolean</link> crypted,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Changes an user's password.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>newpass</parameter>&#160;:</term>
+<listitem><simpara>new password
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>crypted</parameter>&#160;:</term>
+<listitem><simpara>non-zero if <parameter>newpass</parameter> is already encrypted
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with an <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-removepass" role="function">
+<title>lu_user_removepass ()</title>
+<indexterm zone="lu-user-removepass"><primary sortas="lu_user_removepass">lu_user_removepass</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_removepass                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Changes an user's password to an empty string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with an <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-lock" role="function">
+<title>lu_user_lock ()</title>
+<indexterm zone="lu-user-lock"><primary sortas="lu_user_lock">lu_user_lock</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_lock                        (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Locks an user account.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-unlock" role="function">
+<title>lu_user_unlock ()</title>
+<indexterm zone="lu-user-unlock"><primary sortas="lu_user_unlock">lu_user_unlock</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_unlock                      (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Unlocks an user account.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-unlock-nonempty" role="function">
+<title>lu_user_unlock_nonempty ()</title>
+<indexterm zone="lu-user-unlock-nonempty"><primary sortas="lu_user_unlock_nonempty">lu_user_unlock_nonempty</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_unlock_nonempty             (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Unlocks an user account.  If unlocking the account would result in an empty
+password field, it fails with <link linkend="lu-error-unlock-empty"><literal>lu_error_unlock_empty</literal></link>.  Note that the
+password can still be empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-user-islocked" role="function">
+<title>lu_user_islocked ()</title>
+<indexterm zone="lu-user-islocked"><primary sortas="lu_user_islocked">lu_user_islocked</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_user_islocked                    (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Checks if an user account is locked.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the user
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE if the account is locked in at least one module
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-users-enumerate" role="function">
+<title>lu_users_enumerate ()</title>
+<indexterm zone="lu-users-enumerate"><primary sortas="lu_users_enumerate">lu_users_enumerate</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_users_enumerate                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of all users matching a pattern.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>a glob-like pattern for user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>an array of strings, each representing one user name.  The array
+should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-users-enumerate-by-group" role="function">
+<title>lu_users_enumerate_by_group ()</title>
+<indexterm zone="lu-users-enumerate-by-group"><primary sortas="lu_users_enumerate_by_group">lu_users_enumerate_by_group</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_users_enumerate_by_group         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *group,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of all members of a group <parameter>group</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>group name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>an array of strings, each representing one user name.  The array
+should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-users-enumerate-full" role="function">
+<title>lu_users_enumerate_full ()</title>
+<indexterm zone="lu-users-enumerate-full"><primary sortas="lu_users_enumerate_full">lu_users_enumerate_full</primary></indexterm><programlisting><link linkend="GPtrArray">GPtrArray</link> *         lu_users_enumerate_full             (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of entities, one for each user matching a pattern.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>a glob-like pattern for user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a list of pointers to user entities.  The entities and the
+list should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-lookup-name" role="function">
+<title>lu_group_lookup_name ()</title>
+<indexterm zone="lu-group-lookup-name"><primary sortas="lu_group_lookup_name">lu_group_lookup_name</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_lookup_name                (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Looks up a group by name.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>group name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity filled with received information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-lookup-id" role="function">
+<title>lu_group_lookup_id ()</title>
+<indexterm zone="lu-group-lookup-id"><primary sortas="lu_group_lookup_id">lu_group_lookup_id</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_lookup_id                  (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="gid-t">gid_t</link> gid,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Looks up a group by GID.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>gid</parameter>&#160;:</term>
+<listitem><simpara>group ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity filled with received information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-default" role="function">
+<title>lu_group_default ()</title>
+<indexterm zone="lu-group-default"><primary sortas="lu_group_default">lu_group_default</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_default                    (<link linkend="lu-context-t">lu_context_t</link> *ctx,
+                                                         const <link linkend="char">char</link> *name,
+                                                         <link linkend="gboolean">gboolean</link> system_account,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent);</programlisting>
+<para>
+Fills out a group entity as specified by the config file and modules
+to prepare for creation of the group.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ctx</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>new group name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>system_account</parameter>&#160;:</term>
+<listitem><simpara>non-zero if the group is a system group
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-add" role="function">
+<title>lu_group_add ()</title>
+<indexterm zone="lu-group-add"><primary sortas="lu_group_add">lu_group_add</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_add                        (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Creates a group in all modules specified for entity creation.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success updated with resulting account
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-modify" role="function">
+<title>lu_group_modify ()</title>
+<indexterm zone="lu-group-modify"><primary sortas="lu_group_modify">lu_group_modify</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_modify                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Modifies a group entity.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity with pending modifications, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-delete" role="function">
+<title>lu_group_delete ()</title>
+<indexterm zone="lu-group-delete"><primary sortas="lu_group_delete">lu_group_delete</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_delete                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Deletes a group.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-setpass" role="function">
+<title>lu_group_setpass ()</title>
+<indexterm zone="lu-group-setpass"><primary sortas="lu_group_setpass">lu_group_setpass</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_setpass                    (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         const <link linkend="char">char</link> *newpass,
+                                                         <link linkend="gboolean">gboolean</link> crypted,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Changes a group password.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a contect
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>newpass</parameter>&#160;:</term>
+<listitem><simpara>new password
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>crypted</parameter>&#160;:</term>
+<listitem><simpara>non-zero if <parameter>newpass</parameter> is already encrypted
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with an <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-removepass" role="function">
+<title>lu_group_removepass ()</title>
+<indexterm zone="lu-group-removepass"><primary sortas="lu_group_removepass">lu_group_removepass</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_removepass                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Changes a group password to an empty string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success udpated with current
+information and LU_SHADOWLASTCHANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with in <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-lock" role="function">
+<title>lu_group_lock ()</title>
+<indexterm zone="lu-group-lock"><primary sortas="lu_group_lock">lu_group_lock</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_lock                       (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Locks a group account
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-unlock" role="function">
+<title>lu_group_unlock ()</title>
+<indexterm zone="lu-group-unlock"><primary sortas="lu_group_unlock">lu_group_unlock</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_unlock                     (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Unlocks a group account.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-unlock-nonempty" role="function">
+<title>lu_group_unlock_nonempty ()</title>
+<indexterm zone="lu-group-unlock-nonempty"><primary sortas="lu_group_unlock_nonempty">lu_group_unlock_nonempty</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_unlock_nonempty            (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Unlocks a group account.  If unlocking the account would result in an empty
+password field, it fails with <link linkend="lu-error-unlock-empty"><literal>lu_error_unlock_empty</literal></link>.  Note that the
+password can still be empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group, on success updated with current
+information
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-group-islocked" role="function">
+<title>lu_group_islocked ()</title>
+<indexterm zone="lu-group-islocked"><primary sortas="lu_group_islocked">lu_group_islocked</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            lu_group_islocked                   (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         <link linkend="struct-lu-ent">struct lu_ent</link> *ent,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Checks if a group account is locked.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ent</parameter>&#160;:</term>
+<listitem><simpara>an entity describing the group
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>%TRUE if the account is locked in at least one module
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-groups-enumerate" role="function">
+<title>lu_groups_enumerate ()</title>
+<indexterm zone="lu-groups-enumerate"><primary sortas="lu_groups_enumerate">lu_groups_enumerate</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_groups_enumerate                 (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of all groups matching a pattern.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>a glob-like pattern for group name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>an array of strings, each representing one group name.  The array
+should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-groups-enumerate-by-user" role="function">
+<title>lu_groups_enumerate_by_user ()</title>
+<indexterm zone="lu-groups-enumerate-by-user"><primary sortas="lu_groups_enumerate_by_user">lu_groups_enumerate_by_user</primary></indexterm><programlisting><link linkend="GValueArray">GValueArray</link> *       lu_groups_enumerate_by_user         (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *user,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of all groups containing an user <parameter>user</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user</parameter>&#160;:</term>
+<listitem><simpara>user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>an array of strings, each representing one group name.  The array
+should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="lu-groups-enumerate-full" role="function">
+<title>lu_groups_enumerate_full ()</title>
+<indexterm zone="lu-groups-enumerate-full"><primary sortas="lu_groups_enumerate_full">lu_groups_enumerate_full</primary></indexterm><programlisting><link linkend="GPtrArray">GPtrArray</link> *         lu_groups_enumerate_full            (<link linkend="lu-context-t">lu_context_t</link> *context,
+                                                         const <link linkend="char">char</link> *pattern,
+                                                         <link linkend="lu-error-t">lu_error_t</link> **error);</programlisting>
+<para>
+Returns a list of entities, one for each group matching a pattern.
+</para><variablelist role="params">
+<varlistentry><term><parameter>context</parameter>&#160;:</term>
+<listitem><simpara>a context
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>a glob-like pattern for group name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>filled with a <link linkend="lu-error"><type>lu_error</type></link> if an error occurs
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a list of pointers to group entities.  The entities and the
+list should be freed by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>
