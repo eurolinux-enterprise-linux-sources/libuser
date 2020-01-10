@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.60
-Release: 3%{?dist}
+Release: 5%{?dist}
 Group: System Environment/Base
 License: LGPLv2+
 URL: https://fedorahosted.org/libuser/
@@ -96,6 +96,12 @@ python -c "import libuser"
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.60-5
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.60-4
+- Mass rebuild 2013-12-27
+
 * Tue Oct 15 2013 Miloslav Trmač <mitr@redhat.com> - 0.60-3
 - Fix the -2 change, %%check should fail on test suite failure
 - Drop an upstreamed patch
