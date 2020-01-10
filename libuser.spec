@@ -2,11 +2,12 @@
 
 Name: libuser
 Version: 0.60
-Release: 5%{?dist}
+Release: 7%{?dist}
 Group: System Environment/Base
 License: LGPLv2+
 URL: https://fedorahosted.org/libuser/
 Source: https://fedorahosted.org/releases/l/i/libuser/libuser-%{version}.tar.xz
+Patch0: libuser-CVE-2015-3246.patch
 BuildRequires: glib2-devel, linuxdoc-tools, pam-devel, popt-devel, python2-devel
 BuildRequires: cyrus-sasl-devel, libselinux-devel, openldap-devel
 # To make sure the configure script can find it
@@ -45,6 +46,8 @@ administering user and group accounts.
 
 %prep
 %setup -q
+
+%patch0 -p1 -b .CVE-2015-3246
 
 %build
 %configure --with-selinux --with-ldap --with-html-dir=%{_datadir}/gtk-doc/html
@@ -96,6 +99,18 @@ python -c "import libuser"
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Thu Jul 23 2015 Scientific Linux Auto Patch Process <SCIENTIFIC-LINUX-DEVEL@LISTSERV.FNAL.GOV>
+- Eliminated rpmbuild "bogus date" error due to inconsistent weekday,
+  by assuming the date is correct and changing the weekday.
+
+* Wed Jul  8 2015 Miloslav Trmač <mitr@redhat.com> - 0.60-7
+- Update CVE-2015-3246 patch based on review comments
+  Resolves: #1235519
+
+* Fri Jun 26 2015 Miloslav Trmač <mitr@redhat.com> - 0.60-6
+- Fix CVE-2015-3246
+  Resolves: #1235519
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.60-5
 - Mass rebuild 2014-01-24
 
