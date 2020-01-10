@@ -2,11 +2,13 @@
 
 Name: libuser
 Version: 0.60
-Release: 7%{?dist}
+Release: 9%{?dist}
 Group: System Environment/Base
 License: LGPLv2+
 URL: https://fedorahosted.org/libuser/
 Source: https://fedorahosted.org/releases/l/i/libuser/libuser-%{version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=1480537
+Source1: libuser-0.60-ja.po
 Patch0: libuser-CVE-2015-3246.patch
 BuildRequires: glib2-devel, linuxdoc-tools, pam-devel, popt-devel, python2-devel
 BuildRequires: cyrus-sasl-devel, libselinux-devel, openldap-devel
@@ -14,6 +16,7 @@ BuildRequires: cyrus-sasl-devel, libselinux-devel, openldap-devel
 BuildRequires: nscd
 # For %%check
 BuildRequires: openldap-clients, openldap-servers, openssl
+BuildRequires: gettext
 Summary: A user and group account administration library
 
 %description
@@ -48,10 +51,12 @@ administering user and group accounts.
 %setup -q
 
 %patch0 -p1 -b .CVE-2015-3246
+cp %{SOURCE1} po/ja.po
 
 %build
 %configure --with-selinux --with-ldap --with-html-dir=%{_datadir}/gtk-doc/html
 make
+make -C po ja.gmo # (make all) only rebuilds .gmo files if the .pot file is updated, regardless of po/ja.po changes
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
@@ -99,17 +104,21 @@ python -c "import libuser"
 %{_datadir}/gtk-doc/html/*
 
 %changelog
-* Thu Jul 23 2015 Scientific Linux Auto Patch Process <SCIENTIFIC-LINUX-DEVEL@LISTSERV.FNAL.GOV>
-- Eliminated rpmbuild "bogus date" error due to inconsistent weekday,
-  by assuming the date is correct and changing the weekday.
+* Mon Jan 15 2018 Miloslav Trmač <mitr@redhat.com> - 0.60-9
+- Update Japanese translation
+  Resolves: #1480537
+
+* Tue Dec  5 2017 Miloslav Trmač <mitr@redhat.com> - 0.60-8
+- Update Japanese translation
+  Resolves: #1480537
 
 * Wed Jul  8 2015 Miloslav Trmač <mitr@redhat.com> - 0.60-7
 - Update CVE-2015-3246 patch based on review comments
-  Resolves: #1235519
+  Resolves: #1235520
 
 * Fri Jun 26 2015 Miloslav Trmač <mitr@redhat.com> - 0.60-6
 - Fix CVE-2015-3246
-  Resolves: #1235519
+  Resolves: #1235520
 
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.60-5
 - Mass rebuild 2014-01-24
