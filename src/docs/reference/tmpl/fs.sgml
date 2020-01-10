@@ -1,0 +1,124 @@
+<!-- ##### SECTION Title ##### -->
+fs
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION lu_homedir_move ##### -->
+<para>
+
+</para>
+
+@oldhome: 
+@newhome: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_homedir_populate ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@skeleton: 
+@directory: 
+@owner: 
+@group: 
+@mode: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_homedir_remove ##### -->
+<para>
+
+</para>
+
+@directory: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_homedir_remove_for_user ##### -->
+<para>
+
+</para>
+
+@ent: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_homedir_remove_for_user_if_owned ##### -->
+<para>
+
+</para>
+
+@ent: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_mail_spool_create ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@ent: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_mail_spool_remove ##### -->
+<para>
+
+</para>
+
+@ctx: 
+@ent: 
+@error: 
+@Returns: 
+
+
+<!-- ##### MACRO LU_NSCD_CACHE_GROUP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO LU_NSCD_CACHE_PASSWD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION lu_nscd_flush_cache ##### -->
+<para>
+
+</para>
+
+@table: 
+
+

@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fs</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="libuser Reference Manual">
+<link rel="up" href="ch01.html" title="libuser">
+<link rel="prev" href="libuser-user.html" title="user">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libuser-user.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libuser Reference Manual</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libuser-fs.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libuser-fs.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libuser-fs"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libuser-fs.top_of_page"></a>fs</span></h2>
+<p>fs — Utilities for modifying the file system and other
+aspects of user/group management.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libuser-fs.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libuser/fs.h&gt;
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-homedir-move" title="lu_homedir_move ()">lu_homedir_move</a>                     (<em class="parameter"><code>const <span class="type">char</span> *oldhome</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *newhome</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-homedir-populate" title="lu_homedir_populate ()">lu_homedir_populate</a>                 (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *skeleton</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *directory</code></em>,
+                                                         <em class="parameter"><code><span class="type">uid_t</span> owner</code></em>,
+                                                         <em class="parameter"><code><span class="type">gid_t</span> group</code></em>,
+                                                         <em class="parameter"><code><span class="type">mode_t</span> mode</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-homedir-remove" title="lu_homedir_remove ()">lu_homedir_remove</a>                   (<em class="parameter"><code>const <span class="type">char</span> *directory</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-homedir-remove-for-user" title="lu_homedir_remove_for_user ()">lu_homedir_remove_for_user</a>          (<em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-homedir-remove-for-user-if-owned" title="lu_homedir_remove_for_user_if_owned ()">lu_homedir_remove_for_user_if_owned</a> (<em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-mail-spool-create" title="lu_mail_spool_create ()">lu_mail_spool_create</a>                (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libuser-fs.html#lu-mail-spool-remove" title="lu_mail_spool_remove ()">lu_mail_spool_remove</a>                (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);
+#define             <a class="link" href="libuser-fs.html#LU-NSCD-CACHE-GROUP:CAPS" title="LU_NSCD_CACHE_GROUP">LU_NSCD_CACHE_GROUP</a>
+#define             <a class="link" href="libuser-fs.html#LU-NSCD-CACHE-PASSWD:CAPS" title="LU_NSCD_CACHE_PASSWD">LU_NSCD_CACHE_PASSWD</a>
+<span class="returnvalue">void</span>                <a class="link" href="libuser-fs.html#lu-nscd-flush-cache" title="lu_nscd_flush_cache ()">lu_nscd_flush_cache</a>                 (<em class="parameter"><code>const <span class="type">char</span> *table</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="libuser-fs.description"></a><h2>Description</h2>
+<p>
+These routines allow an application to work with home directories, mail
+spools and nscd caches.
+</p>
+</div>
+<div class="refsect1">
+<a name="libuser-fs.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="lu-homedir-move"></a><h3>lu_homedir_move ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_homedir_move                     (<em class="parameter"><code>const <span class="type">char</span> *oldhome</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *newhome</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Moves user's home directory to <em class="parameter"><code>newhome</code></em>.
+</p>
+<p>
+Currently implemented by first creating a copy, then deleting the original,
+expect this to take a long time.
+</p>
+<p>
+If you want to use this in a hostile environment, ensure that no untrusted
+user has write permission to any parent of <em class="parameter"><code>oldhome</code></em> or <em class="parameter"><code>newhome</code></em>.  Usually
+/home is only writable by root, which is safe; user's write permission to
+<em class="parameter"><code>oldhome</code></em> itself is OK.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>oldhome</code></em> :</span></p></td>
+<td>Path to the old home directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newhome</code></em> :</span></p></td>
+<td>Path to the new home directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-homedir-populate"></a><h3>lu_homedir_populate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_homedir_populate                 (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *skeleton</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *directory</code></em>,
+                                                         <em class="parameter"><code><span class="type">uid_t</span> owner</code></em>,
+                                                         <em class="parameter"><code><span class="type">gid_t</span> group</code></em>,
+                                                         <em class="parameter"><code><span class="type">mode_t</span> mode</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Creates a new home directory for an user.
+</p>
+<p>
+If you want to use this in a hostile environment, ensure that no untrusted
+user has write permission to any parent of <em class="parameter"><code>skeleton</code></em> or <em class="parameter"><code>directory</code></em>.  Usually
+/home is only writable by root, which is safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>A context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>skeleton</code></em> :</span></p></td>
+<td>Path to a "skeleton" directory, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for the system default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>directory</code></em> :</span></p></td>
+<td>The home directory to populate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>owner</code></em> :</span></p></td>
+<td>UID to use for contents of the new home directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>GID to use for contents of the new home directory that have GID set
+to 0 in the skeleton director</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>Mode to use for the top-level directory, also affected by umask</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-homedir-remove"></a><h3>lu_homedir_remove ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_homedir_remove                   (<em class="parameter"><code>const <span class="type">char</span> *directory</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Recursively removes a user's home (or really, any) directory.
+</p>
+<p>
+If you want to use this in a hostile environment, ensure that no untrusted
+user has write permission to any parent of <em class="parameter"><code>directory</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>directory</code></em> :</span></p></td>
+<td>Path to the root of the directory tree</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-homedir-remove-for-user"></a><h3>lu_homedir_remove_for_user ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_homedir_remove_for_user          (<em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Recursively removes the home directory of user <em class="parameter"><code>ent</code></em>.
+</p>
+<p>
+If you want to use this in a hostile environment, ensure that no untrusted
+user has write permission to any parent of <em class="parameter"><code>ent</code></em>'s home directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ent</code></em> :</span></p></td>
+<td>An entity describing the user</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-homedir-remove-for-user-if-owned"></a><h3>lu_homedir_remove_for_user_if_owned ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_homedir_remove_for_user_if_owned (<em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Recursively removes the home directory of user <em class="parameter"><code>ent</code></em>, only if the directory
+is owned by <em class="parameter"><code>ent</code></em>.  Otherwise fails with <code class="literal">lu_error_homedir_not_owned</code>.
+</p>
+<p>
+If you want to use this in a hostile environment, ensure that no untrusted
+user has write permission to any parent of <em class="parameter"><code>ent</code></em>'s home directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ent</code></em> :</span></p></td>
+<td>An entity describing the user</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-mail-spool-create"></a><h3>lu_mail_spool_create ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_mail_spool_create                (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Creates a mail spool for the specified user.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>A context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ent</code></em> :</span></p></td>
+<td>An entity representing the relevant user</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-mail-spool-remove"></a><h3>lu_mail_spool_remove ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            lu_mail_spool_remove                (<em class="parameter"><code><span class="type">struct lu_context</span> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_ent</span> *ent</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct lu_error</span> **error</code></em>);</pre>
+<p>
+Creates a mail spool for the specified user.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>A context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ent</code></em> :</span></p></td>
+<td>An entity representing the relevant user</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Filled with <a class="link" href="libuser-error.html#lu-error" title="struct lu_error"><span class="type">lu_error</span></a> if an error occurs</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="LU-NSCD-CACHE-GROUP:CAPS"></a><h3>LU_NSCD_CACHE_GROUP</h3>
+<pre class="programlisting">#define LU_NSCD_CACHE_GROUP "group"
+</pre>
+<p>
+Name of the NSCD cache containing group data.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="LU-NSCD-CACHE-PASSWD:CAPS"></a><h3>LU_NSCD_CACHE_PASSWD</h3>
+<pre class="programlisting">#define LU_NSCD_CACHE_PASSWD "passwd"
+</pre>
+<p>
+Name of the NSCD cache containing user data.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="lu-nscd-flush-cache"></a><h3>lu_nscd_flush_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                lu_nscd_flush_cache                 (<em class="parameter"><code>const <span class="type">char</span> *table</code></em>);</pre>
+<p>
+Flushes the specified nscd cache to make the changes performed by other
+libuser functions immediately visible.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>table</code></em> :</span></p></td>
+<td>Name of the relevant nscd table</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

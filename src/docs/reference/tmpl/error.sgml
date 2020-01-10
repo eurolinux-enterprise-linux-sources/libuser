@@ -1,0 +1,99 @@
+<!-- ##### SECTION Title ##### -->
+error
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT lu_error ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### TYPEDEF lu_error_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO LU_ERROR_CHECK ##### -->
+<para>
+
+</para>
+
+@err_p_p: 
+
+
+<!-- ##### FUNCTION lu_error_new ##### -->
+<para>
+
+</para>
+
+@error: 
+@code: 
+@fmt: 
+@...: 
+
+
+<!-- ##### FUNCTION lu_error_free ##### -->
+<para>
+
+</para>
+
+@error: 
+
+
+<!-- ##### FUNCTION lu_error_is_success ##### -->
+<para>
+
+</para>
+
+@status: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_error_is_warning ##### -->
+<para>
+
+</para>
+
+@status: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_error_is_error ##### -->
+<para>
+
+</para>
+
+@status: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lu_strerror ##### -->
+<para>
+
+</para>
+
+@error: 
+@Returns: 
+
+
